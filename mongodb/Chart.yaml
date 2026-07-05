@@ -1,5 +1,6 @@
 apiVersion: v2
 name: mongodb
-version: ruthvikk1214/mongodb:1.0
-appVersion: mongodb:1.0
-description: "setting up mongodb"
+description: A Helm chart for RoboShop MongoDB
+type: application
+version: 0.1.0
+appVersion: "1.0"

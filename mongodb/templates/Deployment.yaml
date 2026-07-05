@@ -2,31 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
-  namespace: roboshop
   labels:
     project: roboshop
-    env: dev
     component: mongodb
-    tier: db
+    tier: database
 spec:
-  replicas: {{ .Values.Deployment.replicas}}
+  replicas: {{ .Values.deployment.replicas }}  # Changed to lowercase 'd'
   selector:
     matchLabels:
       project: roboshop
-      env: dev
       component: mongodb
-      tier: db
+      tier: database
   template:
     metadata:
       labels:
         project: roboshop
-        env: dev
         component: mongodb
-        tier: db
+        tier: database
     spec:
       containers:
-        - name: mongodb
-          image: {{ .Values.Deployment.image }}:{{ .Values.Deployment.imageVersion }}
-          ports:
-            - containerPort: 27017
-              name: mongodb
+      - name: mongodb
+        image: {{ .Values.deployment.imageVersion }} # Changed to lowercase 'd'
+        ports:
+        - containerPort: 27017
+
