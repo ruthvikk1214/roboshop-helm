@@ -1,0 +1,4 @@
+deployment:
+  replicas: 1
+  imageName: "ruthvikk1214/mongodb"
+  imageVersion: "1.0"

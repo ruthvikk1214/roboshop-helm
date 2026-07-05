@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue
+  namespace: roboshop
+  labels:
+    project: roboshop
+    env: dev
+    component: catalogue
+    tier: backend
+data:
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue
+  namespace: roboshop
+  labels:
+    project: roboshop
+    env: dev
+    component: catalogue
+    tier: backend
+spec: 
+  replicas: {{ .Values.deployment.replicas }}
+  selector: 
+    matchLabels:
+      project: roboshop
+      env: dev
+      component: catalogue
+      tier: backend
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        env: dev
+        component: catalogue
+        tier: backend
+    spec:
+      containers:
+        - name: catalogue
+          image: {{ .Values.deployment.imageName }}:{{ .Values.deployment.imageVersion }}
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            failureThreshold: 2
+            periodSeconds: 10
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            failureThreshold: 2
+            periodSeconds: 10
+          envFrom:
+            - configMapRef:
+                name: catalogue
