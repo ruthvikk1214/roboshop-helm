@@ -1,0 +1,5 @@
+apiVersion: v2
+name: mongodb
+version: ruthvikk1214/mongodb:1.0
+appVersion: mongodb:1.0
+description: "setting up mongodb"
